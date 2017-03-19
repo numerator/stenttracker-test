@@ -135,6 +135,33 @@ def send_story_messages(stories, url):
 		for m in messages:
 			send_story_message(m, url)
 
+def print_messages_for_story(story_id, stories):
+	print("\n\nStory: " + story_id)
+	if story_id in stories:
+		for msg in stories[story_id]['messages']:
+			print_message(msg)
+
+def print_message(msg):
+	msg_id = get_msg_id(msg)
+	patient_name = msg['Patient']['Demographics']['FirstName'] + ' ' + msg['Patient']['Demographics']['LastName']
+	event_date = msg['Meta']['EventDateTime'] 
+	if 'Visit' in msg:
+		appt_date = msg['Visit']['VisitDateTime']
+		appt_status = msg['Visit']['Status']
+	else:
+		appt_date = ''
+		appt_status = ''
+	data_model = msg['Meta']['DataModel']
+	event_type = msg['Meta']['EventType']
+
+	print('Message:', msg_id)
+	print('\t Patient:', patient_name)
+	print('\t TS:', event_date)
+	print('\t Event: ', data_model, "-", event_type)
+	if 'Visit' in msg:
+		print('\t Appt:', appt_date, appt_status)
+
+	print()
 
 ####### MAIN FLOW #######
 
@@ -145,10 +172,9 @@ ST_URL = 'http://app-4429.on-aptible.com/redox'
 story_ids_and_offsets = get_story_ids_and_offsets(sys.argv, STORY_PATH)
 rewrite_rules = load_rewrite_rules(REWRITE_RULES_FILENAME)
 stories = load_stories(story_ids_and_offsets, STORY_PATH)
-# print ("Before rewrite")
-# print (json.dumps(stories, indent=2))
 rewrite_timestamps(stories, rewrite_rules)
-# print ("After rewrite")
-# print (json.dumps(stories, indent=2))
-send_story_messages(stories, ST_URL)
+for story in stories:
+	print_messages_for_story(story, stories)
+	print(json.dumps(stories[story], indent=2))
+#send_story_messages(stories, ST_URL)
 

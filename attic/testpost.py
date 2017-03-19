@@ -18,7 +18,7 @@ post_url = 'http://app-4429.on-aptible.com/redox'
 # 	print (first_msg)
 
 def print_inventory_depletions(message):
-	
+	if message['Meta']['DataModel'] == 'Inventory'
 
 def send_story_summaries(story_id):
 	json_path = 'stories/' + story_id + '.json'
