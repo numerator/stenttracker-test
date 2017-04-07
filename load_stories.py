@@ -2,6 +2,7 @@
 
 import json
 import sys
+import os
 import csv
 import requests
 from datetime import datetime
@@ -27,6 +28,17 @@ def format_date_time_redox_json(dt):
 	r_date_str = dt.strftime('%Y-%m-%dT%H:%M:%S.'+zone+'Z')
 	return r_date_str
 
+def get_data_model(msg):
+	return msg["Meta"]["DataModel"]
+
+def print_inv_depletions():
+	for fname in os.listdir(STORY_PATH):
+		print('\n\nDoing story:', fname, '\n\n')
+		with open (STORY_PATH + fname) as f:
+			for line in f:
+				msg = json.loads(line)
+				if get_data_model(msg) == 'Inventory':
+					print(json.dumps(msg, indent=2))
 
 # not used - for debugging
 def send_story_summaries(story_id):
@@ -127,8 +139,9 @@ def rewrite_timestamps(story_dict, rewrite_rules):
 #curl -H "Content-Type: application/json" -X POST --data-binary @depletion.json http://app-4429.on-aptible.com/redox
 def send_story_message(msg, url):
 	headers = {'Content-Type': 'application/json'}
-	requests.post(url, headers=headers, data=json.dumps(msg).encode())
-
+	r = requests.post(url, headers=headers, data=json.dumps(msg).encode())
+	print(r)
+	
 def send_story_messages(stories, url):
 	for s in stories:
 		messages = stories[s]['messages']
@@ -169,12 +182,14 @@ STORY_PATH = 'stories/'
 REWRITE_RULES_FILENAME = 'stories.csv'
 ST_URL = 'http://app-4429.on-aptible.com/redox'
 
+
+
 story_ids_and_offsets = get_story_ids_and_offsets(sys.argv, STORY_PATH)
 rewrite_rules = load_rewrite_rules(REWRITE_RULES_FILENAME)
 stories = load_stories(story_ids_and_offsets, STORY_PATH)
 rewrite_timestamps(stories, rewrite_rules)
-for story in stories:
-	print_messages_for_story(story, stories)
-	print(json.dumps(stories[story], indent=2))
-#send_story_messages(stories, ST_URL)
+# for story in stories:
+# 	print_messages_for_story(story, stories)
+# 	print(json.dumps(stories[story], indent=2))
+send_story_messages(stories, ST_URL)
 
