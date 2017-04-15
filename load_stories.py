@@ -5,14 +5,142 @@ import sys
 import os
 import csv
 import requests
+import glob
 from datetime import datetime
 from datetime import timedelta
+from datetime import timezone
+from dateutil.parser import *
 
-def get_msg_id(message):
-	#print(json.dumps(message, indent=2))
+class Episode:
+	pass
+
+class UserStory:
+	def __init__(self, id):
+		self.story_id = id
+		self.load_messages()
 	
-	return message['Meta']['Message']['ID']
+	def load_messages(self):
+		global STORY_PATH
+		self.messages = []
+		file_name = STORY_PATH + self.story_id + '.json'
+		with open(file_name) as f:
+			for line in f:
+				json_obj = json.loads(line)
+				self.messages.append(Message(json_obj))
 
+	def get_msg_by_id(self, id):
+		for m in self.messages:
+			if str(m.id) == str(id):
+				return m
+		return None
+
+	def apply_offsets(self, date_zero):
+		story_rewrite_rules = {}
+		global REWRITE_RULES_FILENAME
+
+		with open(REWRITE_RULES_FILENAME) as csvfile:
+			reader = csv.reader(csvfile)
+			for row in reader:
+				story = row[0]
+				if story == self.story_id:
+					msg_id = row[2]
+					ts_offset = row[-2]
+					appt_offset = row[-1]
+					msg = self.get_msg_by_id(msg_id)
+					creation_time = date_zero + timedelta(days=int(ts_offset))
+					msg.set_timestamp(creation_time)
+					print('updated', msg.id, 'with creation time', msg.timestamp)
+					if appt_offset is not None and appt_offset != '':
+						print('updating', msg.id, 'with date zero', date_zero, 'offset', appt_offset)
+						appt_time = date_zero + timedelta(days=int(appt_offset))
+						msg.set_appt_time(appt_time)
+						print('updated', msg.id, 'with appt time', msg.appt.visit_date)
+
+	def rewrite_timestamps(self):
+		pass
+
+	def send_story(self):
+		global ST_URL
+		url = ST_URL
+
+		for m in self.messages:
+			if m.timestamp < datetime.now():
+				m.send_message(url)
+			else:
+				print('ignoring future message:', m)
+	
+	def print_json(self, pretty=True):
+		indent = 0
+		if pretty:
+			indent = 2
+		for m in self.messages:
+			print (json.dumps(m.json_obj, indent=indent))
+
+	def __repr__(self):
+		repr = self.story_id
+		for m in self.messages:
+			repr += "\n\t" + m.__repr__()
+		return repr
+
+class Appt:
+	def __init__(self, json_obj):
+		self.visit_date = parse(json_obj['Visit']['VisitDateTime'])
+		self.status = json_obj['Visit']['Status']
+
+	def __repr__(self):
+		repr = format_date_time_simple(self.visit_date) + ", " + self.status
+		return repr
+
+class Patient:
+	def __init__(self, json_obj):
+		self.first_name = json_obj['Patient']['Demographics']['FirstName']
+		self.last_name = json_obj['Patient']['Demographics']['LastName']
+		ids = json_obj['Patient']['Identifiers']
+		for id in ids:
+			if id['IDType'] == 'MRN':
+				self.mrn = id['ID']
+	def __repr__(self):
+		repr = self.first_name + " " + self.last_name + "(" + self.mrn + ")"
+		return repr
+
+class Message:
+	def __init__(self, json_obj):
+		self.timestamp = parse(json_obj["Meta"]["EventDateTime"])
+		self.data_model = json_obj["Meta"]["DataModel"]
+		self.event_type = json_obj['Meta']['EventType']
+		self.id = json_obj['Meta']['Message']['ID']
+		self.patient = Patient(json_obj)
+		if 'Visit' in json_obj:
+			self.appt = Appt(json_obj)
+		else:
+			self.appt = None
+		self.json_obj = json_obj
+
+	def __repr__(self):
+		repr = str(self.id) + " " + format_date_time_simple(self.timestamp) + \
+			", " + self.data_model + ", " + \
+			self.event_type + ", " + self.patient.__repr__() + ", " + \
+			self.appt.__repr__()
+		return repr
+
+	def set_timestamp(self, timestamp):
+		self.timestamp = timestamp
+		self.json_obj["Meta"]["EventDateTime"] = format_date_time_redox_json(timestamp)
+
+	def set_appt_time(self, appt_time):
+		self.appt.visit_date = appt_time
+		self.json_obj["Visit"]["VisitDateTime"] = format_date_time_redox_json(appt_time)
+	
+	def send_message(self, url):
+		# print('sending message', self)
+		headers = {'Content-Type': 'application/json'}
+		r = requests.post(url, headers=headers, data=json.dumps(self.json_obj).encode())
+		print('sent message', self.id, format_date_time_simple(self.timestamp), 
+			'response:', r)
+		print(json.dumps(self.json_obj, indent=2))
+
+
+### UTILITY FUNCTIONS
 def get_date_zero(offset):
 	date_zero = datetime.now() - timedelta(days=(int(offset)))
 	return date_zero
@@ -28,8 +156,9 @@ def format_date_time_redox_json(dt):
 	r_date_str = dt.strftime('%Y-%m-%dT%H:%M:%S.'+zone+'Z')
 	return r_date_str
 
-def get_data_model(msg):
-	return msg["Meta"]["DataModel"]
+def format_date_time_simple(dt):
+	r_date_str = dt.strftime('%Y-%m-%d %H:%M')
+	return r_date_str
 
 def print_inv_depletions():
 	for fname in os.listdir(STORY_PATH):
@@ -38,158 +167,61 @@ def print_inv_depletions():
 			for line in f:
 				msg = json.loads(line)
 				if get_data_model(msg) == 'Inventory':
-					print(json.dumps(msg, indent=2))
+					print (get_msg_id(msg))
+					#print(json.dumps(msg, indent=2))
 
-# not used - for debugging
-def send_story_summaries(story_id):
-	json_path = 'stories/' + story_id + '.json'
-	with open(json_path) as f:
-		for msg in f:
-			msg_obj = json.loads(msg)
-
-			print_inventory_depletions(msg)
-			# msg = json.dumps(msg_obj, indent=2)
-			timestamp = msg_obj["Meta"]["EventDateTime"]
-			data_model = msg_obj['Meta']['DataModel']		
-			event_type = msg_obj['Meta']['EventType']
-			msg_id = msg_obj['Meta']['Message']['ID']
-			ids = msg_obj['Patient']['Identifiers']
-			for id in ids:
-				if id['IDType'] == 'MRN':
-					mrn = id['ID']
-			first_name = msg_obj['Patient']['Demographics']['FirstName']
-			last_name = msg_obj['Patient']['Demographics']['LastName']
-			visit_number = ''
-			visit_date_time = ''
-			visit_status = ''
-
-			if 'Visit' in msg_obj:
-				visit_number = msg_obj['Visit']['VisitNumber']
-				visit_date_time = msg_obj['Visit']['VisitDateTime']
-				visit_status = msg_obj['Visit']['Status']
-
-			print(story_id, timestamp, msg_id, data_model, event_type, mrn, 
-				first_name, last_name, visit_number, visit_status, 
-				visit_date_time, sep=',')
-
-			r = requests.post(post_url, headers=ct_headers, data=msg)
-			print(r)
-			print (json.dumps(msg_obj, indent=2))
-
-def get_story_ids_and_offsets(args, story_path):
-	story_offsets = []
-	for a in sys.argv:
-		if a.startswith('u') or a.startswith('c'):
-			story_offsets.append((a.split(':')[0], a.split(':')[1]))
-	return story_offsets
-
-def load_rewrite_rules(rule_file):
-	story_rewrite_rules = {}
-
-	with open(rule_file) as csvfile:
-		reader = csv.reader(csvfile)
-		for row in reader:
-			story = row[0]
-			msg_id = row[2]
-			ts_offset = row[-2]
-			appt_offset = row[-1]
-			story_rules = {}
-			if story in story_rewrite_rules:
-				story_rules = story_rewrite_rules[story]
-			story_rules[msg_id] = {}
-			story_rules[msg_id]['ts'] = ts_offset
-			if appt_offset != '':
-				story_rules[msg_id]['appt'] = appt_offset
-			story_rewrite_rules[story] = story_rules
-
-	return story_rewrite_rules
-
-def load_stories(story_offset_list, story_path):
-	stories = {}
-	for u, off in story_offset_list:
-		stories[u] = {}
-		with (open(story_path + u + '.json')) as f:
-			stories[u]['offset'] = off
-			stories[u]['messages'] = []
-			for line in f:
-				msg = json.loads(line)
-				stories[u]['messages'].append(msg)
-	return stories
-
-def rewrite_msg_timestamp(story, msg, date_zero, rewrite_rules):
-	rewrite_rule = rewrite_rules[story]
-	msg_id = get_msg_id(msg)
-	creation_time = date_zero + timedelta(days=int(rewrite_rule[str(msg_id)]['ts']))
-	msg['Meta']['EventDateTime'] = format_date_time_redox_json(creation_time)
-	if 'appt' in rewrite_rule:
-		appt_time = date_zero + timedelta(days=int(rewrite_rule['appt']))
-		msg['Visit']['VisitDateTime'] = format_date_time_redox_json(appt_time)
-	return msg
-
-def rewrite_timestamps(story_dict, rewrite_rules):
-	for story in story_dict:
-		date_zero = get_date_zero(story_dict[story]['offset'])
-		story_messages = story_dict[story]['messages']
-		for i in range(len(story_messages)):
-			m = story_messages[i]
-			shifted_msg = rewrite_msg_timestamp(story, m, date_zero, rewrite_rules)
-			story_messages[i] = shifted_msg
 
 #original curl command
 #curl -H "Content-Type: application/json" -X POST --data-binary @depletion.json http://app-4429.on-aptible.com/redox
-def send_story_message(msg, url):
-	headers = {'Content-Type': 'application/json'}
-	r = requests.post(url, headers=headers, data=json.dumps(msg).encode())
-	print(r)
-	
-def send_story_messages(stories, url):
-	for s in stories:
-		messages = stories[s]['messages']
-		for m in messages:
-			send_story_message(m, url)
 
-def print_messages_for_story(story_id, stories):
-	print("\n\nStory: " + story_id)
-	if story_id in stories:
-		for msg in stories[story_id]['messages']:
-			print_message(msg)
+def test_story_load(story_list, offset):
+	global stories
 
-def print_message(msg):
-	msg_id = get_msg_id(msg)
-	patient_name = msg['Patient']['Demographics']['FirstName'] + ' ' + msg['Patient']['Demographics']['LastName']
-	event_date = msg['Meta']['EventDateTime'] 
-	if 'Visit' in msg:
-		appt_date = msg['Visit']['VisitDateTime']
-		appt_status = msg['Visit']['Status']
+	if story_list is None or len(story_list) == 0:
+		load_all_stories()
 	else:
-		appt_date = ''
-		appt_status = ''
-	data_model = msg['Meta']['DataModel']
-	event_type = msg['Meta']['EventType']
+		for s in story_list:
+			stories.append(UserStory(s))
 
-	print('Message:', msg_id)
-	print('\t Patient:', patient_name)
-	print('\t TS:', event_date)
-	print('\t Event: ', data_model, "-", event_type)
-	if 'Visit' in msg:
-		print('\t Appt:', appt_date, appt_status)
+	dz = get_date_zero(offset)
 
-	print()
+	for s in stories:
+		s.apply_offsets(dz)
+
+	for s in stories:
+		print(s)
+
+def load_all_stories():
+	global STORY_PATH
+	global stories	
+	dir_contents = glob.glob(STORY_PATH + '*.json') # returns list
+	for fname in dir_contents:
+		print (fname)
+		stories.append(UserStory(fname.split('.')[0].split('/')[1]))
+
 
 ####### MAIN FLOW #######
 
 STORY_PATH = 'stories/'
 REWRITE_RULES_FILENAME = 'stories.csv'
 ST_URL = 'http://app-4429.on-aptible.com/redox'
+stories = []
 
+# test_story_load(['u1', 'u2', 'u3', 'u4', 'c1'], 0)
+# test_story_load(None, 0)
 
+story_offsets = []
+for a in sys.argv:
+	if a.startswith('u') or a.startswith('c'):
+		story_offsets.append((a.split(':')[0], a.split(':')[1]))
 
-story_ids_and_offsets = get_story_ids_and_offsets(sys.argv, STORY_PATH)
-rewrite_rules = load_rewrite_rules(REWRITE_RULES_FILENAME)
-stories = load_stories(story_ids_and_offsets, STORY_PATH)
-rewrite_timestamps(stories, rewrite_rules)
-# for story in stories:
-# 	print_messages_for_story(story, stories)
-# 	print(json.dumps(stories[story], indent=2))
-send_story_messages(stories, ST_URL)
+for so in story_offsets:
+	story = UserStory(so[0])
+	stories.append(story)
+	dz = get_date_zero(so[1])
+	story.apply_offsets(dz)
+
+for s in stories:
+	s.send_story()
+	# s.print_json()
 
