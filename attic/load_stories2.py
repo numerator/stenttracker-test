@@ -47,7 +47,6 @@ class UserStory:
 					ts_offset = row[-2]
 					appt_offset = row[-1]
 					msg = self.get_msg_by_id(msg_id)
-					print ('updating', msg_id, 'msg:', msg)
 					creation_time = date_zero + timedelta(days=int(ts_offset))
 					msg.set_timestamp(creation_time)
 					print('updated', msg.id, 'with creation time', msg.timestamp)
@@ -138,7 +137,7 @@ class Message:
 		r = requests.post(url, headers=headers, data=json.dumps(self.json_obj).encode())
 		print('sent message', self.id, format_date_time_simple(self.timestamp), 
 			'response:', r)
-		#print(json.dumps(self.json_obj, indent=2))
+		print(json.dumps(self.json_obj, indent=2))
 
 
 ### UTILITY FUNCTIONS
@@ -197,15 +196,9 @@ def load_all_stories():
 	global stories	
 	dir_contents = glob.glob(STORY_PATH + '*.json') # returns list
 	for fname in dir_contents:
-		#print (fname)
+		print (fname)
 		stories.append(UserStory(fname.split('.')[0].split('/')[1]))
 
-def get_all_story_ids():
-	dir_contents = glob.glob(STORY_PATH + '*.json') # returns list
-	story_ids = []
-	for fname in dir_contents:
-		story_ids.append(fname.split('.')[0].split('/')[1])
-	return story_ids
 
 ####### MAIN FLOW #######
 
@@ -214,16 +207,13 @@ REWRITE_RULES_FILENAME = 'stories.csv'
 ST_URL = 'http://app-4429.on-aptible.com/redox'
 stories = []
 
+# test_story_load(['u1', 'u2', 'u3', 'u4', 'c1'], 0)
+# test_story_load(None, 0)
 
 story_offsets = []
 for a in sys.argv:
 	if a.startswith('u') or a.startswith('c'):
 		story_offsets.append((a.split(':')[0], a.split(':')[1]))
-	if a.startswith('all'):
-		story_ids = get_all_story_ids()
-		offset = a.split(':')[1]
-		for id in story_ids:
-			story_offsets.append((id, offset))
 
 for so in story_offsets:
 	story = UserStory(so[0])
@@ -233,17 +223,5 @@ for so in story_offsets:
 
 for s in stories:
 	s.send_story()
-
-if offset == 0:
-	offset = story_offsets[0][0]
-
-dz = get_date_zero(offset)
-
-print ('Date Zero:', dz)
-print ('40 days:', dz + timedelta(days=int(40)))
-print ('42 days:', dz + timedelta(days=int(42)))
-print ('50 days:', dz + timedelta(days=int(50)))
-print ('56 days:', dz + timedelta(days=int(56)))
-print ('60 days:', dz + timedelta(days=int(60)))
-
+	# s.print_json()
 

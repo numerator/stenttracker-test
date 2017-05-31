@@ -1,0 +1,1207 @@
+
+
+Doing story: c1.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:34:13.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63898208
+    },
+    "Transmission": {
+      "ID": 22981281
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144635",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "2bfa29dd-f31d-41e4-ab3b-819e57342619"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "JIM",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1987-08-07",
+      "SSN": null,
+      "Sex": "Male",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17674",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL UNIVERSA SOFT SET 5FR X 20CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "COOK-UROLOGY M",
+        "Name": "COOK MEDICAL INC EDI",
+        "CatalogNumber": "G23365"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: c2.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:35:48.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63898738
+    },
+    "Transmission": {
+      "ID": 22981576
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144636",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "752e66c6-f282-4458-85ef-80c128858c57"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "STAN",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1965-09-05",
+      "SSN": null,
+      "Sex": "Male",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17643",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL POLARIS LOOP 6FR X 20CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "BOSTON SCIENTIFIC-ENDOUROLOGY M",
+        "Name": "BOSTON SCIENTIFIC CORP EDI",
+        "CatalogNumber": "M0061552300"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: c3.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:39:13.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63900056
+    },
+    "Transmission": {
+      "ID": 22982319
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144637",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "cdf3f24b-fd34-4dfd-9712-4f3a123f9524"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "ROBERT",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1982-12-20",
+      "SSN": null,
+      "Sex": "Male",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17676",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL UNIVERSA SOFT SET 5FR X 24CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "COOK-UROLOGY M",
+        "Name": "COOK MEDICAL INC EDI",
+        "CatalogNumber": "G23367"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: c4.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:41:18.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63900777
+    },
+    "Transmission": {
+      "ID": 22982721
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144638",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "fa3cd97e-9d92-468b-bd07-8c36976916c1"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "THOMAS",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1980-10-05",
+      "SSN": null,
+      "Sex": "Male",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17642",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL PERCUFLEX DIVERSION 8FR X 80CM OPEN TIP",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "BOSTON SCIENTIFIC-ENDOUROLOGY M",
+        "Name": "BOSTON SCIENTIFIC CORP EDI",
+        "CatalogNumber": "M0061602150"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: c5.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:56:08.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63905944
+    },
+    "Transmission": {
+      "ID": 22985528
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144639",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "bb3d0cf8-d00e-4995-af5b-171b1be95b94"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "ALICE",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1981-08-03",
+      "SSN": null,
+      "Sex": "Female",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17611",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL C-FLEX DOUBLE PIGTAIL 3.7FR X 10CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "COOK-UROLOGY M",
+        "Name": "COOK MEDICAL INC EDI",
+        "CatalogNumber": "G14637"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: c6.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:57:48.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63906487
+    },
+    "Transmission": {
+      "ID": 22985790
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144640",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "081bfbc8-720b-43b2-8e3a-3dde1305a69c"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "LIZ",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1965-06-07",
+      "SSN": null,
+      "Sex": "Female",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17623",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL PERCUFLEX 6FR X 22CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "BOSTON SCIENTIFIC-ENDOUROLOGY M",
+        "Name": "BOSTON SCIENTIFIC CORP EDI",
+        "CatalogNumber": "M0061453600"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T15:00:03.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63907277
+    },
+    "Transmission": {
+      "ID": 22986195
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144640",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "081bfbc8-720b-43b2-8e3a-3dde1305a69c"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "LIZ",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1965-06-07",
+      "SSN": null,
+      "Sex": "Female",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "19386",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "TUBING, TUR IRRIGATION Y-SET W/ ROLLER CLAMP 96IN",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "HOSPIRA WORLDWIDE M",
+        "Name": "OWENS AND MINOR EDI",
+        "CatalogNumber": "32180654301"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: c7.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T15:09:13.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63910584
+    },
+    "Transmission": {
+      "ID": 22988028
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144643",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "aed7964f-6777-4dc6-9f96-394ef847574b"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "PENELOPE",
+      "MiddleName": "CORRECT",
+      "LastName": "STENT",
+      "DOB": "1990-05-06",
+      "SSN": null,
+      "Sex": "Female",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17644",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL POLARIS LOOP 6FR X 22CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "BOSTON SCIENTIFIC-ENDOUROLOGY M",
+        "Name": "BOSTON SCIENTIFIC CORP EDI",
+        "CatalogNumber": "M0061552310"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: u1.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:19:48.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63893069
+    },
+    "Transmission": {
+      "ID": 22978408
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144142",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "2d14c8cf-efba-44b5-9e45-122170cb0ff9"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "JAKE",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1967-01-24",
+      "SSN": null,
+      "Sex": "Male",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "19386",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "TUBING, TUR IRRIGATION Y-SET W/ ROLLER CLAMP 96IN",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "HOSPIRA WORLDWIDE M",
+        "Name": "OWENS AND MINOR EDI",
+        "CatalogNumber": "32180654301"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: u2.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:25:28.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63894980
+    },
+    "Transmission": {
+      "ID": 22979387
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144144",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "18254f04-c8ce-46b9-b78b-3f1910ee7ed7"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "SAM",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1992-01-24",
+      "SSN": null,
+      "Sex": "Male",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17643",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL POLARIS LOOP 6FR X 20CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "BOSTON SCIENTIFIC-ENDOUROLOGY M",
+        "Name": "BOSTON SCIENTIFIC CORP EDI",
+        "CatalogNumber": "M0061552300"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: u3.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:28:18.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63895999
+    },
+    "Transmission": {
+      "ID": 22979960
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144634",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "ab3dce7f-6efb-4f0d-bc50-aef9e8e1d406"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "SUZY",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "1978-07-08",
+      "SSN": null,
+      "Sex": "Female",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17611",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL C-FLEX DOUBLE PIGTAIL 3.7FR X 10CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "COOK-UROLOGY M",
+        "Name": "COOK MEDICAL INC EDI",
+        "CatalogNumber": "G14637"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
+
+
+Doing story: u4.json 
+
+
+{
+  "Meta": {
+    "DataModel": "Inventory",
+    "EventType": "Deplete",
+    "EventDateTime": "2017-02-10T14:32:18.000Z",
+    "Test": true,
+    "Source": {
+      "ID": "2942c446-13f5-42b0-b09c-5d6762690319",
+      "Name": "University of Michigan Epic Staging (s)"
+    },
+    "Destinations": [
+      {
+        "ID": "3a9d4566-0c27-4723-953f-a92a8a9707f0",
+        "Name": "Stent Tracking Staging"
+      }
+    ],
+    "Message": {
+      "ID": 63897475
+    },
+    "Transmission": {
+      "ID": 22980872
+    },
+    "FacilityCode": null
+  },
+  "Patient": {
+    "Identifiers": [
+      {
+        "ID": "400144641",
+        "IDType": "MRN"
+      },
+      {
+        "IDType": "REDOX-University-of-Michigan-1220",
+        "ID": "25b7b7c4-5b2c-4c7d-9833-d19696316215"
+      }
+    ],
+    "Demographics": {
+      "FirstName": "TIM",
+      "MiddleName": null,
+      "LastName": "STENT",
+      "DOB": "2016-11-04",
+      "SSN": null,
+      "Sex": "Male",
+      "Race": null,
+      "IsHispanic": null,
+      "MaritalStatus": null,
+      "IsDeceased": null,
+      "DeathDateTime": null,
+      "PhoneNumber": {
+        "Home": null,
+        "Office": null,
+        "Mobile": null
+      },
+      "EmailAddresses": [],
+      "Language": null,
+      "Citizenship": [],
+      "Address": {
+        "StreetAddress": null,
+        "City": null,
+        "State": null,
+        "ZIP": null,
+        "County": null,
+        "Country": null
+      }
+    },
+    "Notes": []
+  },
+  "Items": [
+    {
+      "Identifiers": [
+        {
+          "ID": "17676",
+          "IDType": "none specified"
+        }
+      ],
+      "Description": "STENT, URETERAL UNIVERSA SOFT SET 5FR X 24CM",
+      "Quantity": "1",
+      "Type": null,
+      "Units": "Each",
+      "Procedure": {
+        "Code": null,
+        "Codeset": null,
+        "Modifier": null
+      },
+      "Notes": null,
+      "Vendor": {
+        "ID": "COOK-UROLOGY M",
+        "Name": "COOK MEDICAL INC EDI",
+        "CatalogNumber": "G23367"
+      },
+      "WatedQuantity": null,
+      "UsedQuantity": null,
+      "SerialNumber": null,
+      "LotNumber": null
+    }
+  ]
+}
