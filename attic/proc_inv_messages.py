@@ -41,24 +41,20 @@ class UserStory:
 		with open(REWRITE_RULES_FILENAME) as csvfile:
 			reader = csv.reader(csvfile)
 			for row in reader:
-
 				story = row[0]
 				if story == self.story_id:
-					msg_id = row[3]
+					msg_id = row[2]
 					ts_offset = row[-2]
 					appt_offset = row[-1]
-
 					msg = self.get_msg_by_id(msg_id)
-					print ('updating', msg_id, 'msg:', msg)
-					print ('applying offsets ts:', ts_offset, 'appt: ', appt_offset)
 					creation_time = date_zero + timedelta(days=int(ts_offset))
 					msg.set_timestamp(creation_time)
-					#print('updated', msg.id, 'with creation time', msg.timestamp)
+					print('updated', msg.id, 'with creation time', msg.timestamp)
 					if appt_offset is not None and appt_offset != '':
-						#print('updating', msg.id, 'with date zero', date_zero, 'offset', appt_offset)
+						print('updating', msg.id, 'with date zero', date_zero, 'offset', appt_offset)
 						appt_time = date_zero + timedelta(days=int(appt_offset))
 						msg.set_appt_time(appt_time)
-						#print('updated', msg.id, 'with appt time', msg.appt.visit_date)
+						print('updated', msg.id, 'with appt time', msg.appt.visit_date)
 
 	def rewrite_timestamps(self):
 		pass
@@ -66,7 +62,7 @@ class UserStory:
 	def send_story(self):
 		global ST_URL
 		url = ST_URL
-		print('sending story', self)
+
 		for m in self.messages:
 			if m.timestamp < datetime.now():
 				m.send_message(url)
@@ -88,13 +84,8 @@ class UserStory:
 
 class Appt:
 	def __init__(self, json_obj):
-		if 'Visit' in json_obj and 'VisitDateTime' in json_obj['Visit']:
-			self.visit_date = parse(json_obj['Visit']['VisitDateTime'])
-			self.status = json_obj['Visit']['Status']
-		elif 'Procedures' in json_obj and 'DateTime' in json_obj['Procedures'][0]:
-			self.visit_date = parse(json_obj['Procedures'][0]['DateTime'])
-			print('visit date is', self.visit_date)
-			self.status = json_obj['Meta']['EventType']
+		self.visit_date = parse(json_obj['Visit']['VisitDateTime'])
+		self.status = json_obj['Visit']['Status']
 
 	def __repr__(self):
 		repr = format_date_time_simple(self.visit_date) + ", " + self.status
@@ -119,13 +110,10 @@ class Message:
 		self.event_type = json_obj['Meta']['EventType']
 		self.id = json_obj['Meta']['Message']['ID']
 		self.patient = Patient(json_obj)
-		#print (json.dumps(json_obj, indent=2))
-		if 'Visit' in json_obj or 'Procedures' in json_obj:
+		if 'Visit' in json_obj:
 			self.appt = Appt(json_obj)
-			print (self.id)
 		else:
 			self.appt = None
-		print('message ', self.id, ' has appt ', self.appt)
 		self.json_obj = json_obj
 
 	def __repr__(self):
@@ -140,21 +128,16 @@ class Message:
 		self.json_obj["Meta"]["EventDateTime"] = format_date_time_redox_json(timestamp)
 
 	def set_appt_time(self, appt_time):
-		if 'Visit' in self.json_obj and 'VisitDateTime' in self.json_obj['Visit']:
-			self.appt.visit_date = appt_time
-			self.json_obj["Visit"]["VisitDateTime"] = format_date_time_redox_json(appt_time)
-		elif 'Procedures' in self.json_obj and 'DateTime' in self.json_obj['Procedures'][0]:
-			self.appt.visit_date = appt_time
-			self.json_obj["Procedures"][0]["DateTime"] = format_date_time_redox_json(appt_time)
- 
+		self.appt.visit_date = appt_time
+		self.json_obj["Visit"]["VisitDateTime"] = format_date_time_redox_json(appt_time)
 	
 	def send_message(self, url):
-		print('sending message', self)
+		# print('sending message', self)
 		headers = {'Content-Type': 'application/json'}
 		r = requests.post(url, headers=headers, data=json.dumps(self.json_obj).encode())
 		print('sent message', self.id, format_date_time_simple(self.timestamp), 
 			'response:', r)
-		#print(json.dumps(self.json_obj, indent=2))
+		print(json.dumps(self.json_obj, indent=2))
 
 
 ### UTILITY FUNCTIONS
@@ -213,15 +196,9 @@ def load_all_stories():
 	global stories	
 	dir_contents = glob.glob(STORY_PATH + '*.json') # returns list
 	for fname in dir_contents:
-		#print (fname)
+		print (fname)
 		stories.append(UserStory(fname.split('.')[0].split('/')[1]))
 
-def get_all_story_ids():
-	dir_contents = glob.glob(STORY_PATH + '*.json') # returns list
-	story_ids = []
-	for fname in dir_contents:
-		story_ids.append(fname.split('.')[0].split('/')[1])
-	return story_ids
 
 ####### MAIN FLOW #######
 
@@ -229,21 +206,16 @@ STORY_PATH = 'stories/'
 REWRITE_RULES_FILENAME = 'stories.csv'
 ST_URL = 'http://app-4429.on-aptible.com/redox'
 stories = []
-offset = 0
+
+# test_story_load(['u1', 'u2', 'u3', 'u4', 'c1'], 0)
+# test_story_load(None, 0)
 
 story_offsets = []
 for a in sys.argv:
 	if a.startswith('u') or a.startswith('c'):
 		story_offsets.append((a.split(':')[0], a.split(':')[1]))
-	if a.startswith('all'):
-		story_ids = get_all_story_ids()
-		print(story_ids)
-		offset = a.split(':')[1]
-		for id in story_ids:
-			story_offsets.append((id, offset))
 
 for so in story_offsets:
-	print("Story:", so[0])
 	story = UserStory(so[0])
 	stories.append(story)
 	dz = get_date_zero(so[1])
@@ -251,17 +223,5 @@ for so in story_offsets:
 
 for s in stories:
 	s.send_story()
-
-if offset == 0:
-	offset = story_offsets[0][1]
-
-dz = get_date_zero(offset)
-
-print ('Date Zero:', dz)
-print ('40 days:', dz + timedelta(days=int(40)))
-print ('42 days:', dz + timedelta(days=int(42)))
-print ('50 days:', dz + timedelta(days=int(50)))
-print ('56 days:', dz + timedelta(days=int(56)))
-print ('60 days:', dz + timedelta(days=int(60)))
-
+	# s.print_json()
 
