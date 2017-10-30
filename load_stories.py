@@ -150,8 +150,18 @@ class Message:
 	
 	def send_message(self, url):
 		print('sending message', self)
-		headers = {'Content-Type': 'application/json'}
-		r = requests.post(url, headers=headers, data=json.dumps(self.json_obj).encode())
+
+		# the verification token and application name are ignored,
+		# but I believe this is correct in terms of what we'll see from Redox
+		headers = {'Content-Type': 'application/json', 
+			'verification-token': '1a820238722df41a7897b74c32111c9b',
+			'application-name': 'RedoxEngine'}
+
+		# putting the verification token into the JSON object
+		# I believe this is incorrect but it works with the current StentTracker
+		self.json_obj['verification-token'] = '1a820238722df41a7897b74c32111c9b'
+		data=json.dumps(self.json_obj).encode()
+		r = requests.post(url, headers=headers, data=data)
 		print('sent message', self.id, format_date_time_simple(self.timestamp), 
 			'response:', r)
 		#print(json.dumps(self.json_obj, indent=2))
@@ -227,7 +237,7 @@ def get_all_story_ids():
 
 STORY_PATH = 'stories/'
 REWRITE_RULES_FILENAME = 'stories.csv'
-ST_URL = 'http://app-4429.on-aptible.com/redox'
+ST_URL = 'https://app-4429.on-aptible.com/redox'
 stories = []
 offset = 0
 
