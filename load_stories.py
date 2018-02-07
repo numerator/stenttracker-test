@@ -10,6 +10,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 from dateutil.parser import *
+from secrets import verification_token
 
 class Episode:
 	pass
@@ -18,7 +19,7 @@ class UserStory:
 	def __init__(self, id):
 		self.story_id = id
 		self.load_messages()
-	
+
 	def load_messages(self):
 		global STORY_PATH
 		self.messages = []
@@ -72,7 +73,7 @@ class UserStory:
 				m.send_message(url)
 			else:
 				print('ignoring future message:', m)
-	
+
 	def print_json(self, pretty=True):
 		indent = 0
 		if pretty:
@@ -146,15 +147,15 @@ class Message:
 		elif 'Procedures' in self.json_obj and 'DateTime' in self.json_obj['Procedures'][0]:
 			self.appt.visit_date = appt_time
 			self.json_obj["Procedures"][0]["DateTime"] = format_date_time_redox_json(appt_time)
- 
-	
+
+
 	def send_message(self, url):
 		#print('sending message', self)
 		global verification_token
 
 		# the verification token and application name are ignored,
 		# but I believe this is correct in terms of what we'll see from Redox
-		headers = {'Content-Type': 'application/json', 
+		headers = {'Content-Type': 'application/json',
 			'verification-token': verification_token,
 			'application-name': 'RedoxEngine'}
 
@@ -163,7 +164,7 @@ class Message:
 		#self.json_obj['verification-token'] = '1a820238722df41a7897b74c32111c9b'
 		data=json.dumps(self.json_obj).encode()
 		r = requests.post(url, headers=headers, data=data)
-		print('sent message', self.id, format_date_time_simple(self.timestamp), 
+		print('sent message', self.id, format_date_time_simple(self.timestamp),
 			'response:', r)
 		#print(json.dumps(self.json_obj, indent=2))
 
@@ -221,7 +222,7 @@ def test_story_load(story_list, offset):
 
 def load_all_stories():
 	global STORY_PATH
-	global stories	
+	global stories
 	dir_contents = glob.glob(STORY_PATH + '*.json') # returns list
 	for fname in dir_contents:
 		#print (fname)
@@ -278,5 +279,3 @@ print ('42 days:', dz + timedelta(days=int(42)))
 print ('50 days:', dz + timedelta(days=int(50)))
 print ('56 days:', dz + timedelta(days=int(56)))
 print ('60 days:', dz + timedelta(days=int(60)))
-
-
