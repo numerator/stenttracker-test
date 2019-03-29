@@ -244,8 +244,8 @@ ST_URL = 'https://app-4429.on-aptible.com/redox' # staging
 stories = []
 offset = 0
 
-# same for prod and staging -- this needs to be removed before checkin
-verification_token = '1a820238722df41a7897b74c32111c9b'
+# same for prod and staging -- this needs to be added for application to accept messages
+verification_token = ''
 
 story_offsets = []
 for a in sys.argv:
